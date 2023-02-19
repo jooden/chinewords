@@ -1,0 +1,11 @@
+<h1>The 100 core Chinese words</h1>
+
+<nav class="sticky-top-nav">
+    {{ range $index, $data := .Site.Data.words }}
+        {{ range $key, $value := $data }}
+            <a href="#{{ $key }}" alt="{{ $key }}" style="--bg-hue:{{ mul $index 50 }};">
+                {{ $key }}
+            </a>
+        {{ end }}
+    {{ end }}
+</nav>

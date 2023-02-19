@@ -1,17 +1,5 @@
 {{ define "main" }}
 
-    <h1>The 100 core Chinese words</h1>
-
-    <nav class="sticky-top-nav">
-        {{ range $index, $data := .Site.Data.words }}
-            {{ range $key, $value := $data }}
-                <a href="#{{ $key }}" alt="{{ $key }}" style="--bg-hue:{{ mul $index 50 }};">
-                    {{ $key }}
-                </a>
-            {{ end }}
-        {{ end }}
-    </nav>
-
     <ul class="smooth-scroll-y">
         {{ range $index, $data := .Site.Data.words }}
             {{ range $key, $value := $data }}
@@ -39,6 +27,7 @@
         {{ end }}
     </ul>
 
+    {{/*  TODO: move to asset  */}}
     <style>
         .sticky-top-nav {
             position: sticky;
@@ -49,8 +38,9 @@
             justify-content: center;
             align-items: center;
             gap: 0.4rem;
-            padding: 1rem;
-            background-color: #ffffff;
+            min-height: 3rem;
+            background: #ffffffdd;
+            backdrop-filter: blur(1px);
         }
 
         .sticky-top-nav a {
@@ -81,16 +71,17 @@
             display: grid;
             place-content: center;
             border: 1px solid hsl(var(--bg-hue), 100%, 85%);
+            color: hsl(var(--bg-hue), 33%, 33%);
             padding: 2rem;
             font-family: sans-serif;
             font-size: 1.125rem;
             text-align: center;
             min-height: 200px;
-            scroll-margin-top: 65px;
+            scroll-margin-top: calc(3rem - 1px);
         }
 
         .card h2 {
-            font-size: clamp(1.125rem, calc(3vw + 2px), 1.75rem);
+            font-size: clamp(1.125rem, calc(2.5vw + 2px), 1.75rem);
             font-weight: 100;
             letter-spacing: clamp(1px, calc(1vw + 1px), 5px);
             margin: 0;
@@ -106,23 +97,24 @@
         .card:not(:has(h2)) :first-child {
             letter-spacing: clamp(5px, 1vw, 10px);
             font-size: 2.5rem;
-            color: hsl(var(--bg-hue), 33%, 33%);
         }
 
         .card :nth-child(2) {
             font-size: 0.875rem;
             font-weight: 100;
-            color: #a8a8a8;
+            color: hsl(var(--bg-hue), 33%, 66%);
         }
 
         .card :nth-child(3) {
             position: absolute;
             display: inherit;
             place-items: center;
-            inset: 0 0 0 0;
+            inset-inline: 0.8rem;
+            bottom: 0.8rem;
+            padding: 0.5rem 0.25rem;
             background-color: hsl(var(--bg-hue), 50%, 95%);
             opacity: 0;
-            transition: opacity 0.275s ease-in;
+            transition: opacity 0.2s ease-out;
         }
 
         .card:hover :nth-child(3) {
