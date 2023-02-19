@@ -1,0 +1,133 @@
+{{ define "main" }}
+
+    <h1>The 100 core Chinese words</h1>
+
+    <nav class="sticky-top-nav">
+        {{ range $index, $data := .Site.Data.words }}
+            {{ range $key, $value := $data }}
+                <a href="#{{ $key }}" alt="{{ $key }}" style="--bg-hue:{{ mul $index 50 }};">
+                    {{ $key }}
+                </a>
+            {{ end }}
+        {{ end }}
+    </nav>
+
+    <ul class="smooth-scroll-y">
+        {{ range $index, $data := .Site.Data.words }}
+            {{ range $key, $value := $data }}
+
+                <li id="{{ $key }}"
+                    class="card"
+                    style="--bg-hue:{{ mul $index 50 }};">
+                    <h2>
+                        {{ $key | upper }}
+                    </h2>
+                </li>
+
+                {{ range $words := $value }}
+                    <li class="card"
+                        style="--bg-hue:{{ mul $index 50 }};">
+                        {{ range $words }}
+                            <span>
+                                {{ . }}
+                            </span>
+                        {{ end }}
+                    </li>
+                {{ end }}
+
+            {{ end }}
+        {{ end }}
+    </ul>
+
+    <style>
+        .sticky-top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            overflow-x: auto;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 1rem;
+            background-color: #ffffff;
+        }
+
+        .sticky-top-nav a {
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 2rem;
+            padding: 0.2rem 1rem;
+            background-color:  hsl(var(--bg-hue), 33%, 33%);
+            color: white;
+        }
+        
+        .smooth-scroll-y {
+            width: min(90%, 80ch);
+            padding: 0;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(33ch, 1fr));
+            gap: 1rem;
+            list-style: none;
+            scroll-behavior: smooth;
+        }
+
+        .card {
+            box-sizing: border-box;
+            position: relative;
+            display: grid;
+            place-content: center;
+            border: 1px solid hsl(var(--bg-hue), 100%, 85%);
+            padding: 2rem;
+            font-family: sans-serif;
+            font-size: 1.125rem;
+            text-align: center;
+            min-height: 200px;
+            scroll-margin-top: 65px;
+        }
+
+        .card h2 {
+            font-size: clamp(1.125rem, calc(3vw + 2px), 1.75rem);
+            font-weight: 100;
+            letter-spacing: clamp(1px, calc(1vw + 1px), 5px);
+            margin: 0;
+        }
+
+        .card:has(h2) {
+            font-family: serif;
+            border: none;
+            color: white;
+            background-color: hsl(var(--bg-hue), 33%, 33%);
+        }
+
+        .card:not(:has(h2)) :first-child {
+            letter-spacing: clamp(5px, 1vw, 10px);
+            font-size: 2.5rem;
+            color: hsl(var(--bg-hue), 33%, 33%);
+        }
+
+        .card :nth-child(2) {
+            font-size: 0.875rem;
+            font-weight: 100;
+            color: #a8a8a8;
+        }
+
+        .card :nth-child(3) {
+            position: absolute;
+            display: inherit;
+            place-items: center;
+            inset: 0 0 0 0;
+            background-color: hsl(var(--bg-hue), 50%, 95%);
+            opacity: 0;
+            transition: opacity 0.275s ease-in;
+        }
+
+        .card:hover :nth-child(3) {
+            opacity: 1;
+        }
+    </style>
+
+{{ end }}
