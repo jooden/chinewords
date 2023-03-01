@@ -2,9 +2,12 @@
 
 <nav class="sticky-top-nav">
     {{ range $index, $data := .Site.Data.words }}
-        {{ range $key, $value := $data }}
-            <a href="#{{ $key }}" alt="{{ $key }}" style="--bg-hue:{{ mul $index 50 }};">
-                {{ $key }}
+        {{ range $tagName, $words := $data }}
+            <a href="#{{ $tagName }}" alt="{{ $tagName }}"
+               class="tag"
+               style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};"
+               data-number="{{ $words|len }}">
+                {{ $tagName }}
             </a>
         {{ end }}
     {{ end }}

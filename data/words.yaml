@@ -47,7 +47,7 @@
   - [ "星期 ", "xīngqī", "week" ]
   - [ "里面", "lǐmiàn", "inside" ]
   - [ "外面 ", "wàimiàn", "outside" ]
-- measures:
+- classifiers:
   - [ "个", "gè", "generic measure word" ]
   - [ "元/块", "yuán/kuài", "basic monetary unit of China" ]
 - verbs:
@@ -96,7 +96,7 @@
   - [ "也", "yě", "also" ]
   - [ "都", "dōu", "both or all" ]
   - [ "不/没", "bù/méi", "not" ]
-- conjugaisons:
+- conjunctions:
   - [ "和", "hé", "and" ]
   - [ "但是", "dànshì", "but" ]
   - [ "因为", "yīnwèi", "because" ]
@@ -105,3 +105,4 @@
   - [ "比如", "bǐrú", "for example" ]
   - [ "然后", "ránhòu", "and then" ]
   - [ "那个", "nèige/nàge", "ummm… or weellll…" ]
+  
