@@ -1,14 +1,27 @@
-<h1>The 100 core Chinese words</h1>
+<h1 class="container">
+    The 100 core Chinese words
+</h1>
+
+<p class="container">
+    A simple interface build uppon the 100 core Chinese words find on   
+    <a href="https://www.fluentin3months.com/core-chinese-words/"
+       alt="www.fluentin3months.com/core-chinese-words">
+        fluentin3months
+    </a>.
+</p>
 
 <nav class="sticky-top-nav">
     {{ range $index, $data := .Site.Data.words }}
         {{ range $tagName, $words := $data }}
+
+            {{/*  TODO: make a tag component  */}}
             <a href="#{{ $tagName }}" alt="{{ $tagName }}"
                class="tag"
                style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};"
                data-number="{{ $words|len }}">
                 {{ $tagName }}
             </a>
+
         {{ end }}
     {{ end }}
 </nav>

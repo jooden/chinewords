@@ -1,20 +1,20 @@
 {{ define "main" }}
 
-    <ul class="container">
+    <ul class="container grid">
         {{ range $index, $data := .Site.Data.words }}
             {{ range $title, $value := $data }}
 
+                {{/*  TODO: make a card component  */}}
                 <li id="{{ $title }}"
                     class="card card-tag"
-                    style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};"
-                    data-card-tag="{{ $value|len }}">
+                    style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};">
                     <h2 class="title">
                         {{ $title | upper }}
                     </h2>
-                    
                 </li>
 
                 {{ range $words := $value }}
+                    {{/*  TODO: use the card component  */}}
                     <li class="card"
                         style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};">
                         {{ range $index, $word := $words }}
@@ -29,7 +29,8 @@
         {{ end }}
     </ul>
 
-    {{/*  TODO: move CSS to asset, then cope to components  */}}
+    {{/*  TODO: move CSS to asset, then scope by components  */}}
+    {{/*  TODO: use tokens from a tokens.sccs config file */}}
     <style>
         :root {
             --navbar-min-height: 3rem;
@@ -41,10 +42,10 @@
         }
 
         .sticky-top-nav {
-            overflow-x: auto;
             position: sticky;
             top: 0;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 0.4rem;
@@ -55,13 +56,12 @@
         }
 
         .tag {
-            --min-height: 1.5rem;
             position: relative;
             display: flex;
             align-items: center;
-            overflow: hidden;
-            border-radius: 1vmax;
             padding-left: 1rem;
+            height: 1.5rem;
+            border-radius: 1vmax;
             font-family: sans-serif;
             font-size: 0.8rem;
             font-weight: 600;
@@ -74,20 +74,24 @@
             content: attr(data-number);
             display: grid;
             place-items: center;
-            height: var(--min-height);
+            margin-left: 0.25rem;
+            height: inherit;
             aspect-ratio: 1 / 1;
-            margin-left: 0.2rem;
+            border-radius: inherit;
             font-size: 0.6rem;
             background: rgba(0, 0, 0, 0.25);
         }
-        
+
         .container {
+            margin: 0 auto;
+            width: min(90%, 45rem);
+        }
+        
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(33ch, 1fr));
             gap: 1rem;
             padding: 0;
-            margin: 0 auto;
-            width: min(90%, 80ch);
             list-style: none;
         }
 
@@ -104,6 +108,10 @@
             font-size: 1.125rem;
             text-align: center;
             color: hsl(var(--bg-hue), 33%, 33%);
+        }
+
+        .card:hover {
+            border-width: 3px;
         }
 
         .title {
