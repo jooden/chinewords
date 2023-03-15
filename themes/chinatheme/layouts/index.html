@@ -1,32 +1,58 @@
 {{ define "main" }}
+<a href="#" class="up">⇡</a>
 
-    <dl class="container grid">
-        {{ range $index, $data := .Site.Data.words }}
-            {{ range $title, $value := $data }}
+<dl class="container grid">
+    {{ range $index, $data := .Site.Data.words }}
+        {{ range $title, $value := $data }}
 
-                {{/*  TODO: make a card component  */}}
-                <dt id="{{ $title }}"
-                    class="card card-tag"
+            {{/*  TODO: make a card component  */}}
+            <dt id="{{ $title }}"
+                class="card card-tag"
+                style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};">
+                <h2 class="title">
+                    {{ $title | upper }}
+                </h2>
+            </dt>
+
+            {{ range $words := $value }}
+                {{/*  TODO: use the card component  */}}
+                {{/*  TODO: split symbols and separate words from audio  */}}
+                <dd class="card"
                     style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};">
-                    <h2 class="title">
-                        {{ $title | upper }}
-                    </h2>
-                </dt>
+                    {{ range $index, $word := $words }}
 
-                {{ range $words := $value }}
-                    {{/*  TODO: use the card component  */}}
-                    <dd class="card"
-                        style="--bg-hue:{{ mul $index ( div 360 ($.Site.Data.words|len) ) }};">
-                        {{ range $index, $word := $words }}
+                        {{ if ne 3 $index }}
                             <span class="word-{{ $index }}">
-                                {{ $word }}
-                            </span>
-                        {{ end }}
-                    </dd>
-                {{ end }}
 
+                                {{ if eq 0 $index }}
+
+                                    {{ range split $word "" }}
+                                        {{ if eq "/" .}}
+                                            <span>-</span>
+                                        {{ else }}
+                                            <span class="chinese-caracter">{{ . }}</span>
+                                        {{ end }}
+                                    {{ end }}
+
+                                {{ else }}
+                                    {{ $word }}
+                                {{ end }}
+
+                            </span>
+                        {{ else }}
+                            <div class="audio-play"
+                                    onclick="this.querySelector('audio').play()">
+                                &#x1f508;
+                                <audio class="audio-player" src="audio/{{ $word }}"></audio>
+                            </div>
+                        {{ end }}
+
+                    {{ end }}
+                </dd>
             {{ end }}
+
         {{ end }}
-    </dl>
+    {{ end }}
+</dl>
 
 {{ end }}

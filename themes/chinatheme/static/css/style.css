@@ -3,6 +3,12 @@
     --navbar-min-height: 3rem;
 }
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--navbar-min-height);
@@ -33,7 +39,7 @@ a {
     padding-left: 1rem;
     height: 1.5rem;
     border-radius: 1vmax;
-    font-family: sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none;
@@ -67,15 +73,15 @@ a {
 }
 
 .card {
-    box-sizing: border-box;
     overflow: hidden;
     position: relative;
     display: grid;
     place-content: center;
+    gap: 4px;
     padding: 2rem;
     margin: 0;
     min-height: 200px;
-    border: 1px solid hsla(var(--bg-hue), 66%, 33%, 50%);
+    box-shadow: inset 0 0 0 1px hsla(var(--bg-hue), 66%, 33%, 50%);
     font-family: sans-serif;
     font-size: 1.125rem;
     text-align: center;
@@ -83,12 +89,12 @@ a {
 }
 
 .card:hover {
-    border-width: 3px;
+    box-shadow: inset 0 0 0 2px hsla(var(--bg-hue), 66%, 33%, 50%);
 }
 
 .title {
     margin: 0;
-    font-family: serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: clamp(1.125rem, calc(2.5vw + 2px), 1.75rem);
     font-weight: 100;
     letter-spacing: clamp(1px, calc(1vw + 1px), 5px);
@@ -101,18 +107,38 @@ a {
 }
 
 .word-0 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 2.5rem;
+}
+
+.chinese-caracter {
+    position: relative;
+}
+
+.chinese-caracter:hover::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    aspect-ratio: 1/1;
+    outline: 1px solid hsla(var(--bg-hue), 33%, 33%, 50%);
+    /* TODO: link the background image */
+    background: no-repeat center / 100% url(/images/caracter_grid.svg);
 }
 
 .word-1 {
     font-size: 0.875rem;
     font-weight: 100;
     color: hsla(var(--bg-hue), 33%, 33%, 95%);
-    opacity: 0;
+    visibility: hidden;
 }
 
 .card:hover .word-1 {
-    opacity: 1;
+    visibility: visible;
 }
 
 .word-2 {
@@ -141,4 +167,29 @@ a {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.audio-play {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: baseline;
+    padding: 4px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.card:hover .audio-play {
+    opacity: 1;
+}
+
+.up {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.5rem;
+    color: hsl(0, 66%, 33%);
+    box-shadow: inset 0 0 0 1px hsl(0, 66%, 33%);
+    text-decoration: none;
 }
