@@ -1,4 +1,5 @@
-baseURL: http://example.org/
+baseURL: https://jooden.github.io/chinewords/
 languageCode: en-us
 title: Chinese core words UI
 theme: chinatheme
+publishDir: "static"
